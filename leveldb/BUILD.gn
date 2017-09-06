@@ -136,11 +136,11 @@ static_library("leveldb") {
   }
 }
 
-executable("test_leveldb") {
-  testonly = true
-  sources = [ "test_leveldb.cpp" ]
-  deps = [
-    ":gtest_main",
-    ":leveldb"
-  ]
-}
+#executable("test_leveldb") {
+#  testonly = true
+#  sources = [ "test_leveldb.cpp" ]
+#  deps = [
+#    ":gtest_main",
+#    ":leveldb"
+#  ]
+#}

@@ -32,14 +32,14 @@ static_library("snappy") {
   ]
 }
 
-executable("test_snappy") {
-  testonly = true
-  sources = [ "test_snappy.cpp" ]
-  deps = [
-    ":gtest_main",
-    ":snappy"
-  ]
-}
+#executable("test_snappy") {
+#  testonly = true
+#  sources = [ "test_snappy.cpp" ]
+#  deps = [
+#    ":gtest_main",
+#    ":snappy"
+#  ]
+#}
 
 # TODO needs google-benchmark
 

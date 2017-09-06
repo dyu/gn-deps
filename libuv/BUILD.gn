@@ -142,8 +142,8 @@ static_library("libuv") {
   }
 }
 
-executable("sample_uv") {
-  sources = [ "sample_uv.c" ]
-  deps = [ ":libuv" ]
-}
+#executable("sample_uv") {
+#  sources = [ "sample_uv.c" ]
+#  deps = [ ":libuv" ]
+#}
 

@@ -60,17 +60,17 @@ static_library("uws") {
   }
 }
 
-executable("echo") {
-  sources = [ "echo.cpp" ]
-  deps = [
-    ":uws",
-  ]
-}
+#executable("echo") {
+#  sources = [ "echo.cpp" ]
+#  deps = [
+#    ":uws",
+#  ]
+#}
 
-executable("throughput") {
-  sources = [ "throughput.cpp" ]
-  deps = [
-    ":libuv",
-  ]
-}
+#executable("throughput") {
+#  sources = [ "throughput.cpp" ]
+#  deps = [
+#    ":libuv",
+#  ]
+#}
 
