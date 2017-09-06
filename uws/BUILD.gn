@@ -1,0 +1,76 @@
+# ==================================================
+# vars
+
+if (is_win) {
+  vcpkg_dir = "C:\\vcpkg\vcpkg"
+  vcpkg_lib_dir = "$vcpkg_dir\\installed\\x64-windows-static\\lib"
+  vcpkg_include_dir = "$vcpkg_dir\\installed\\x64-windows-static\\include"
+}
+
+config("uws_config") {
+  include_dirs = [ "src" ]
+  if (is_win) {
+    include_dirs += [ "$vcpkg_include_dir" ]
+    ldflags = [ "/LIBPATH:$vcpkg_lib_dir" ]
+    libs = [
+      "libeay32.lib",
+      "ssleay32.lib",
+      "zlib.lib",
+      "gdi32.lib",
+    ]
+  } else {
+    libs = [
+      "crypto",
+      "ssl",
+      "z",
+    ]
+  }
+}
+
+static_library("uws") {
+  sources = [
+    "src/Asio.h",
+    "src/Extensions.h",
+    "src/Hub.h",
+    "src/Node.h",
+    "src/WebSocket.h",
+    "src/Backend.h",
+    "src/Group.h",
+    "src/Libuv.h",
+    "src/Socket.h",
+    "src/WebSocketProtocol.h",
+    "src/Epoll.h",
+    "src/HTTPSocket.h",
+    "src/Networking.h",
+    "src/uWS.h",
+    "src/Extensions.cpp",
+    "src/Group.cpp",
+    "src/Networking.cpp",
+    "src/Hub.cpp",
+    "src/Node.cpp",
+    "src/WebSocket.cpp",
+    "src/HTTPSocket.cpp",
+    "src/Socket.cpp",
+    "src/Epoll.cpp",
+  ]
+  public_configs = [ ":uws_config" ]
+  if (is_win) {
+    defines = [ "USE_LIBUV" ]
+    deps = [ ":libuv" ]
+  }
+}
+
+executable("echo") {
+  sources = [ "echo.cpp" ]
+  deps = [
+    ":uws",
+  ]
+}
+
+executable("throughput") {
+  sources = [ "throughput.cpp" ]
+  deps = [
+    ":libuv",
+  ]
+}
+
