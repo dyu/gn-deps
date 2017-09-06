@@ -1,0 +1,11 @@
+
+config("json_config") {
+  include_dirs = [ "." ]
+}
+
+source_set("json") {
+  sources = [
+    "json.h",
+  ]
+  public_configs = [ ":json_config" ]
+}
