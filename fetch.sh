@@ -34,26 +34,26 @@ cd $SCRIPT_DIR
 
 mkdir target
 
-[ ! -e googletest-release-$GTEST_VERSION ] && \
+[ ! -e googletest/googletest ] && \
     wget https://github.com/google/googletest/archive/release-$GTEST_VERSION.tar.gz -O $GTEST_GZ  && \
     tar -xvzf $GTEST_GZ --strip-components=1 -C googletest
 
 # https://github.com/google/snappy/releases/download/$SNAPPY_VERSION/snappy-$SNAPPY_VERSION.tar.gz has a different source!
-[ ! -e snappy-$SNAPPY_VERSION ] && \
+[ ! -e snappy/snappy.h ] && \
     wget https://github.com/google/snappy/archive/$SNAPPY_VERSION.tar.gz -O $SNAPPY_GZ && \
     tar -xvzf $SNAPPY_GZ --strip-components=1 -C snappy
 
-[ ! -e leveldb-$LEVELDB_VERSION ] && \
+[ ! -e leveldb/include ] && \
     wget https://github.com/google/leveldb/archive/v$LEVELDB_VERSION.tar.gz -O $LEVELDB_GZ && \
     tar -xvzf $LEVELDB_GZ --strip-components=1 -C leveldb && \
     patch leveldb/port/port.h < leveldb/gn-diff/leveldb_port.diff && \
     patch leveldb/include/leveldb/slice.h < leveldb/gn-diff/leveldb_slice.diff
 
-[ ! -e libuv-$LIBUV_VERSION ] && \
+[ ! -e libuv/include ] && \
     wget https://github.com/libuv/libuv/archive/v$LIBUV_VERSION.tar.gz -O $LIBUV_GZ && \
     tar -xvzf $LIBUV_GZ --strip-components=1 -C libuv
 
-[ ! -e uWebSockets ] && \
+[ ! -e uWebSockets/src ] && \
     wget http://github.com/dyu/uWebSockets/archive/$UWS_BRANCH.tar.gz -o $UWS_GZ && \
     tar -xvzf $UWS_GZ --strip-components=1 -C uWebSockets
 
