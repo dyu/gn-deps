@@ -54,7 +54,7 @@ mkdir -p target
     tar -xvzf $LIBUV_GZ --strip-components=1 -C libuv
 
 [ ! -e uWebSockets/src ] && \
-    wget http://github.com/dyu/uWebSockets/archive/$UWS_BRANCH.tar.gz -o $UWS_GZ && \
+    wget http://github.com/dyu/uWebSockets/archive/$UWS_BRANCH.tar.gz -O $UWS_GZ && \
     tar -xvzf $UWS_GZ --strip-components=1 -C uWebSockets
 
 [ ! -e $JSON_H ] && \
