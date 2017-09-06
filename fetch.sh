@@ -32,7 +32,7 @@ fi
 
 cd $SCRIPT_DIR
 
-mkdir target
+mkdir -p target
 
 [ ! -e googletest/googletest ] && \
     wget https://github.com/google/googletest/archive/release-$GTEST_VERSION.tar.gz -O $GTEST_GZ  && \
