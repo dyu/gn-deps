@@ -56,7 +56,7 @@ static_library("uws") {
   public_configs = [ ":uws_config" ]
   if (is_win) {
     defines = [ "USE_LIBUV" ]
-    deps = [ "//gn-deps/libuv:libuv" ]
+    deps = [ "../libuv:libuv" ]
   }
 }
 

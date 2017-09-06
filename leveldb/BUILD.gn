@@ -130,9 +130,9 @@ static_library("leveldb") {
   }
 
   public_configs = [ ":leveldb_config" ]
-  deps = [ "//gn-deps/snappy:snappy" ]
+  deps = [ "../snappy:snappy" ]
   if (is_win) {
-    deps += [ "//gn-deps/libuv:libuv" ]
+    deps += [ "../libuv:libuv" ]
   }
 }
 
