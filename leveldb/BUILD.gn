@@ -100,12 +100,12 @@ static_library("leveldb") {
       "$leveldb_dir",
       "port",
       "util",
-      "port-libuv",
+      "gn-port-libuv",
     ]
     sources += [
-      "port-libuv/port_uv.cc",
-      "port-libuv/env_win.cc",
-      "port-libuv/win_logger.cc",
+      "gn-port-libuv/port_uv.cc",
+      "gn-port-libuv/env_win.cc",
+      "gn-port-libuv/win_logger.cc",
     ]
   } else {
     defines = [
