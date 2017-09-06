@@ -1,7 +1,7 @@
 #!/bin/sh
 
 GTEST_VERSION=1.8.0
-GTEST_GZ=target/release-$GTEST_VERSION.tar.gz
+GTEST_GZ=target/googletest-$GTEST_VERSION.tar.gz
 
 SNAPPY_VERSION=1.1.4
 SNAPPY_GZ=target/snappy-$SNAPPY_VERSION.tar.gz
