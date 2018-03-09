@@ -18,6 +18,9 @@ UWS_GZ=target/uws-$UWS_BRANCH.tar.gz
 JSON_VERSION=2.1.1
 JSON_H=nlohmann-json/json.hpp
 
+LIBPNG_VERSION=1.6.29
+LIBPNG_GZ=target/libpng-$LIBPNG_VERSION.tar.gz
+
 fetch_gtest() {
 [ ! -e googletest/googletest ] && \
     wget https://github.com/google/googletest/archive/release-$GTEST_VERSION.tar.gz -O $GTEST_GZ  && \
@@ -54,6 +57,12 @@ fetch_uws() {
 fetch_json() {
 [ ! -e $JSON_H ] && \
     wget https://github.com/nlohmann/json/releases/download/v$JSON_VERSION/json.hpp -O $JSON_H
+}
+
+fetch_libpng() {
+[ ! -e libpng/png.h ] && \
+    wget https://github.com/glennrp/libpng/archive/v$LIBPNG_VERSION.tar.gz -O $LIBPNG_GZ && \
+    tar -xvzf $LIBPNG_GZ --strip-components=1 -C libpng
 }
 
 CURRENT_DIR=$PWD
@@ -96,6 +105,10 @@ case "$1" in
     json)
     fetch_json
     ;;
+    
+    libpng)
+    fetch_libpng
+    ;;
 
     *)
     fetch_gtest
@@ -104,6 +117,7 @@ case "$1" in
     fetch_libuv
     fetch_uws
     fetch_json
+    fetch_libpng
     ;;
 esac
 
