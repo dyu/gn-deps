@@ -65,22 +65,17 @@ fetch_libpng() {
     tar -xvzf $LIBPNG_GZ --strip-components=1 -C libpng
 }
 
-CURRENT_DIR=$PWD
-# locate
-if [ ! -n "$BASH_SOURCE" ]; then
-    SCRIPT_DIR=`dirname "$(readlink -f "$0")"`
-else
-    F=$BASH_SOURCE
-    while [ -h "$F" ]; do
-        F="$(readlink "$F")"
-    done
-    SCRIPT_DIR=`dirname "$F"`
-fi
+fetch_all() {
+    fetch_gtest
+    fetch_snappy
+    fetch_leveldb
+    fetch_libuv
+    fetch_uws
+    fetch_json
+    fetch_libpng
+}
 
-cd $SCRIPT_DIR
-
-mkdir -p target
-
+fetch_arg() {
 case "$1" in
     gtest)
     fetch_gtest
@@ -109,17 +104,31 @@ case "$1" in
     libpng)
     fetch_libpng
     ;;
-
-    *)
-    fetch_gtest
-    fetch_snappy
-    fetch_leveldb
-    fetch_libuv
-    fetch_uws
-    fetch_json
-    fetch_libpng
-    ;;
+    
 esac
+}
 
+CURRENT_DIR=$PWD
+# locate
+if [ ! -n "$BASH_SOURCE" ]; then
+    SCRIPT_DIR=`dirname "$(readlink -f "$0")"`
+else
+    F=$BASH_SOURCE
+    while [ -h "$F" ]; do
+        F="$(readlink "$F")"
+    done
+    SCRIPT_DIR=`dirname "$F"`
+fi
 
+cd $SCRIPT_DIR
+
+mkdir -p target
+
+if [ -n "$1" ]; then
+    for i in $@; do
+    fetch_arg $i
+    done
+else
+    fetch_all
+fi
 
