@@ -23,20 +23,20 @@ LIBPNG_GZ=target/libpng-$LIBPNG_VERSION.tar.gz
 
 fetch_gtest() {
 [ ! -e googletest/googletest ] && \
-    wget https://github.com/google/googletest/archive/release-$GTEST_VERSION.tar.gz -O $GTEST_GZ  && \
+    curl https://github.com/google/googletest/archive/release-$GTEST_VERSION.tar.gz -Lso $GTEST_GZ  && \
     tar -xvzf $GTEST_GZ --strip-components=1 -C googletest
 }
 
 fetch_snappy() {
 # https://github.com/google/snappy/releases/download/$SNAPPY_VERSION/snappy-$SNAPPY_VERSION.tar.gz has a different source!
 [ ! -e snappy/snappy.h ] && \
-    wget https://github.com/google/snappy/archive/$SNAPPY_VERSION.tar.gz -O $SNAPPY_GZ && \
+    curl https://github.com/google/snappy/archive/$SNAPPY_VERSION.tar.gz -Lso $SNAPPY_GZ && \
     tar -xvzf $SNAPPY_GZ --strip-components=1 -C snappy
 }
 
 fetch_leveldb() {
 [ ! -e leveldb/include ] && \
-    wget https://github.com/google/leveldb/archive/v$LEVELDB_VERSION.tar.gz -O $LEVELDB_GZ && \
+    curl https://github.com/google/leveldb/archive/v$LEVELDB_VERSION.tar.gz -Lso $LEVELDB_GZ && \
     tar -xvzf $LEVELDB_GZ --strip-components=1 -C leveldb && \
     patch leveldb/port/port.h < leveldb/gn-diff/leveldb_port.diff && \
     patch leveldb/include/leveldb/slice.h < leveldb/gn-diff/leveldb_slice.diff
@@ -44,24 +44,24 @@ fetch_leveldb() {
 
 fetch_libuv() {
 [ ! -e libuv/include ] && \
-    wget https://github.com/libuv/libuv/archive/v$LIBUV_VERSION.tar.gz -O $LIBUV_GZ && \
+    curl https://github.com/libuv/libuv/archive/v$LIBUV_VERSION.tar.gz -Lso $LIBUV_GZ && \
     tar -xvzf $LIBUV_GZ --strip-components=1 -C libuv
 }
 
 fetch_uws() {
 [ ! -e uWebSockets/src ] && \
-    wget http://github.com/dyu/uWebSockets/archive/$UWS_BRANCH.tar.gz -O $UWS_GZ && \
+    curl https://github.com/dyu/uWebSockets/archive/$UWS_BRANCH.tar.gz -Lso $UWS_GZ && \
     tar -xvzf $UWS_GZ --strip-components=1 -C uWebSockets
 }
 
 fetch_json() {
 [ ! -e $JSON_H ] && \
-    wget https://github.com/nlohmann/json/releases/download/v$JSON_VERSION/json.hpp -O $JSON_H
+    curl https://github.com/nlohmann/json/releases/download/v$JSON_VERSION/json.hpp -Lso $JSON_H
 }
 
 fetch_libpng() {
 [ ! -e libpng/png.h ] && \
-    wget https://github.com/glennrp/libpng/archive/v$LIBPNG_VERSION.tar.gz -O $LIBPNG_GZ && \
+    curl https://github.com/glennrp/libpng/archive/v$LIBPNG_VERSION.tar.gz -Lso $LIBPNG_GZ && \
     tar -xvzf $LIBPNG_GZ --strip-components=1 -C libpng
 }
 
