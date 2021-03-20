@@ -178,7 +178,7 @@ static_library("libuv") {
       #"-fPIC",
     ]
   }
-  if (is_win) {
+  if (is_win || is_mac) {
     all_dependent_configs = [ ":libuv_config" ]
   } else {
     public_configs = [ ":libuv_config" ]
