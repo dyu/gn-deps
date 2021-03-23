@@ -89,7 +89,6 @@ static_library("libuv") {
       "src/win/tcp.c",
       "src/win/thread.c",
       "src/win/tty.c",
-      "src/win/timer.c",
       "src/win/udp.c",
       "src/win/util.c",
       "src/win/winapi.c",
