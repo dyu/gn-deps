@@ -1,5 +1,11 @@
 config("zlib_config") {
   include_dirs = [ "." ]
+  defines = [
+    "HAVE_STDARG_H=1",
+  ]
+  if (is_posix) {
+    defines += [ "HAVE_UNISTD_H=1" ]
+  }
 }
 
 static_library("zlib") {
@@ -24,16 +30,13 @@ static_library("zlib") {
     "-Wall",
     "-Werror",
   ]
-  defines = [
-    "HAVE_UNISTD_H=1",
-    "HAVE_STDARG_H=1",
-  ]
+
   public_configs = [ ":zlib_config" ]
 }
 
-#executable("gzjoin") {
+#executable("zran") {
 #  testonly = true
-#  sources = [ "examples/gzjoin.c" ]
+#  sources = [ "examples/zran.c" ]
 #  deps = [
 #    ":zlib",
 #  ]
