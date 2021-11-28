@@ -21,6 +21,9 @@ JSON_H=nlohmann-json/json.hpp
 LIBPNG_VERSION=1.6.29
 LIBPNG_GZ=target/libpng-$LIBPNG_VERSION.tar.gz
 
+ZLIB_VERSION=1.2.11
+ZLIB_GZ=target/zlib-$ZLIB_VERSION.tar.gz
+
 fetch_gtest() {
 [ ! -e googletest/googletest ] && \
     curl https://github.com/google/googletest/archive/release-$GTEST_VERSION.tar.gz -Lso $GTEST_GZ  && \
@@ -65,6 +68,12 @@ fetch_libpng() {
     tar -xvzf $LIBPNG_GZ --strip-components=1 -C libpng
 }
 
+fetch_zlib() {
+[ ! -e zlib/zlib.h ] && \
+    curl https://zlib.net/zlib-$ZLIB_VERSION.tar.gz -Lso $ZLIB_GZ && \
+    tar -xvzf $ZLIB_GZ --strip-components=1 -C zlib
+}
+
 fetch_all() {
     fetch_gtest
     fetch_snappy
@@ -73,6 +82,7 @@ fetch_all() {
     fetch_uws
     fetch_json
     fetch_libpng
+    fetch_zlib
 }
 
 fetch_arg() {
@@ -103,6 +113,10 @@ case "$1" in
     
     libpng)
     fetch_libpng
+    ;;
+    
+    zlib)
+    fetch_zlib
     ;;
     
 esac

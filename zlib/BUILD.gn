@@ -1,0 +1,40 @@
+config("zlib_config") {
+  include_dirs = [ "." ]
+}
+
+static_library("zlib") {
+  sources = [
+    "adler32.c",
+    "compress.c",
+    "crc32.c",
+    "deflate.c",
+    "gzclose.c",
+    "gzlib.c",
+    "gzread.c",
+    "gzwrite.c",
+    "infback.c",
+    "inffast.c",
+    "inflate.c",
+    "inftrees.c",
+    "trees.c",
+    "uncompr.c",
+    "zutil.c",
+  ]
+  cflags = [
+    "-Wall",
+    "-Werror",
+  ]
+  defines = [
+    "HAVE_UNISTD_H=1",
+    "HAVE_STDARG_H=1",
+  ]
+  public_configs = [ ":zlib_config" ]
+}
+
+#executable("gzjoin") {
+#  testonly = true
+#  sources = [ "examples/gzjoin.c" ]
+#  deps = [
+#    ":zlib",
+#  ]
+#}
