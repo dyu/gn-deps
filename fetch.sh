@@ -6,8 +6,9 @@ GTEST_GZ=target/googletest-$GTEST_VERSION.tar.gz
 SNAPPY_VERSION=1.1.4
 SNAPPY_GZ=target/snappy-$SNAPPY_VERSION.tar.gz
 
-LEVELDB_VERSION=1.19
-LEVELDB_GZ=target/leveldb-$LEVELDB_VERSION.tar.gz
+# legacy version
+#LEVELDB_LEGACY_VERSION=1.19
+#LEVELDB_LEGACY_GZ=target/leveldb-$LEVELDB_LEGACY_VERSION.tar.gz
 
 LIBUV_VERSION=1.41.0
 LIBUV_GZ=target/libuv-$LIBUV_VERSION.tar.gz
@@ -37,12 +38,16 @@ fetch_snappy() {
     tar -xvzf $SNAPPY_GZ --strip-components=1 -C snappy
 }
 
+#fetch_leveldb_legacy() {
+#[ ! -e leveldb-legacy/include ] && \
+#    curl https://github.com/google/leveldb/archive/v$LEVELDB_LEGACY_VERSION.tar.gz -Lso $LEVELDB_LEGACY_GZ && \
+#    tar -xvzf $LEVELDB_LEGACY_GZ --strip-components=1 -C leveldb-legacy && \
+#    patch leveldb-legacy/port/port.h < leveldb-legacy/gn-diff/leveldb_port.diff && \
+#    patch leveldb-legacy/include/leveldb/slice.h < leveldb-legacy/gn-diff/leveldb_slice.diff
+#}
+
 fetch_leveldb() {
-[ ! -e leveldb/include ] && \
-    curl https://github.com/google/leveldb/archive/v$LEVELDB_VERSION.tar.gz -Lso $LEVELDB_GZ && \
-    tar -xvzf $LEVELDB_GZ --strip-components=1 -C leveldb && \
-    patch leveldb/port/port.h < leveldb/gn-diff/leveldb_port.diff && \
-    patch leveldb/include/leveldb/slice.h < leveldb/gn-diff/leveldb_slice.diff
+[ ! -e leveldb ] && git clone --depth 1 --single-branch -b gn https://github.com/dyu/leveldb.git
 }
 
 fetch_libuv() {
