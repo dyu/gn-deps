@@ -32,6 +32,10 @@ config("gtest_config") {
       # direct dependents that might include gtest headers.
       "GTEST_HAS_RTTI=0",
     ]
+  } else {
+    defines += [
+      "GTEST_OS_WINDOWS=1",
+    ]
   }
   if (is_android) {
     defines += [
