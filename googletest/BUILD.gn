@@ -20,6 +20,9 @@ config("gtest_config") {
   include_dirs = [ "$gtest_dir/include" ]
   if (is_win) {
     cflags = [ "/wd4800" ]  # Unused variable warning.
+    defines += [
+      "GTEST_OS_WINDOWS=1",
+    ]
   }
   if (is_posix) {
     defines += [
@@ -31,10 +34,6 @@ config("gtest_config") {
       # must be instructed that RTTI is disabled here, and for any
       # direct dependents that might include gtest headers.
       "GTEST_HAS_RTTI=0",
-    ]
-  } else {
-    defines += [
-      "GTEST_OS_WINDOWS=1",
     ]
   }
   if (is_android) {
