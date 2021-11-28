@@ -3,7 +3,9 @@ config("zlib_config") {
   defines = [
     "HAVE_STDARG_H=1",
   ]
-  if (is_posix) {
+  if (is_win) {
+    defines += [ "NO_FSEEKO=1" ]
+  } else {
     defines += [ "HAVE_UNISTD_H=1" ]
   }
 }
@@ -33,9 +35,9 @@ static_library("zlib") {
   public_configs = [ ":zlib_config" ]
 }
 
-#executable("zran") {
+#executable("example") {
 #  testonly = true
-#  sources = [ "examples/zran.c" ]
+#  sources = [ "test/example.c" ]
 #  deps = [
 #    ":zlib",
 #  ]
