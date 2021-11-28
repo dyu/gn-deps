@@ -28,7 +28,6 @@ static_library("zlib") {
   ]
   cflags = [
     "-Wall",
-    "-Werror",
   ]
 
   public_configs = [ ":zlib_config" ]
