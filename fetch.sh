@@ -3,8 +3,9 @@
 GTEST_VERSION=1.8.0
 GTEST_GZ=target/googletest-$GTEST_VERSION.tar.gz
 
-SNAPPY_VERSION=1.1.4
-SNAPPY_GZ=target/snappy-$SNAPPY_VERSION.tar.gz
+# legacy version
+#SNAPPY_LEGACY_VERSION=1.1.4
+#SNAPPY_LEGACY_GZ=target/snappy-$SNAPPY_LEGACY_VERSION.tar.gz
 
 # legacy version
 #LEVELDB_LEGACY_VERSION=1.19
@@ -31,11 +32,15 @@ fetch_gtest() {
     tar -xvzf $GTEST_GZ --strip-components=1 -C googletest
 }
 
+#fetch_snappy_legacy() {
+# https://github.com/google/snappy/releases/download/$SNAPPY_LEGACY_VERSION/snappy-$SNAPPY_LEGACY_VERSION.tar.gz has a different source!
+#[ ! -e snappy/snappy.h ] && \
+#    curl https://github.com/google/snappy/archive/$SNAPPY_LEGACY_VERSION.tar.gz -Lso $SNAPPY_LEGACY_GZ && \
+#    tar -xvzf $SNAPPY_LEGACY_GZ --strip-components=1 -C snappy
+#}
+
 fetch_snappy() {
-# https://github.com/google/snappy/releases/download/$SNAPPY_VERSION/snappy-$SNAPPY_VERSION.tar.gz has a different source!
-[ ! -e snappy/snappy.h ] && \
-    curl https://github.com/google/snappy/archive/$SNAPPY_VERSION.tar.gz -Lso $SNAPPY_GZ && \
-    tar -xvzf $SNAPPY_GZ --strip-components=1 -C snappy
+[ ! -e snappy ] && git clone --depth 1 --single-branch -b gn https://github.com/dyu/snappy.git
 }
 
 #fetch_leveldb_legacy() {
