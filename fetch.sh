@@ -32,6 +32,10 @@ fetch_gtest() {
     tar -xvzf $GTEST_GZ --strip-components=1 -C googletest
 }
 
+fetch_crc32c() {
+[ ! -e crc32c ] && git clone --depth 1 --single-branch -b gn https://github.com/dyu/crc32c.git
+}
+
 #fetch_snappy_legacy() {
 # https://github.com/google/snappy/releases/download/$SNAPPY_LEGACY_VERSION/snappy-$SNAPPY_LEGACY_VERSION.tar.gz has a different source!
 #[ ! -e snappy/snappy.h ] && \
@@ -90,6 +94,7 @@ fetch_zstd() {
 
 fetch_all() {
     fetch_gtest
+    fetch_crc32c
     fetch_snappy
     fetch_leveldb
     fetch_libuv
@@ -104,6 +109,10 @@ fetch_arg() {
 case "$1" in
     gtest)
     fetch_gtest
+    ;;
+    
+    crc32c)
+    fetch_crc32c
     ;;
     
     snappy)
