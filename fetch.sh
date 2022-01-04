@@ -84,6 +84,10 @@ fetch_zlib() {
     tar -xvzf $ZLIB_GZ --strip-components=1 -C zlib
 }
 
+fetch_zstd() {
+[ ! -e zstd ] && git clone --depth 1 --single-branch -b gn https://github.com/dyu/zstd.git
+}
+
 fetch_all() {
     fetch_gtest
     fetch_snappy
@@ -93,6 +97,7 @@ fetch_all() {
     fetch_json
     fetch_libpng
     fetch_zlib
+    fetch_zstd
 }
 
 fetch_arg() {
@@ -127,6 +132,10 @@ case "$1" in
     
     zlib)
     fetch_zlib
+    ;;
+    
+    zstd)
+    fetch_zstd
     ;;
     
 esac
