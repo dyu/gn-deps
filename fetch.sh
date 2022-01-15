@@ -59,6 +59,10 @@ fetch_leveldb() {
 [ ! -e leveldb ] && git clone --depth 1 --single-branch -b gn https://github.com/dyu/leveldb.git
 }
 
+fetch_hyperleveldb() {
+[ ! -e HyperLevelDB ] && git clone --depth 1 --single-branch -b gn https://github.com/dyu/HyperLevelDB.git
+}
+
 fetch_libuv() {
 [ ! -e libuv/include ] && \
     curl https://github.com/libuv/libuv/archive/v$LIBUV_VERSION.tar.gz -Lso $LIBUV_GZ && \
@@ -121,6 +125,10 @@ case "$1" in
     
     leveldb)
     fetch_leveldb
+    ;;
+    
+    hyperleveldb)
+    fetch_hyperleveldb
     ;;
     
     libuv)
