@@ -60,7 +60,7 @@ fetch_leveldb() {
 }
 
 fetch_hyperleveldb() {
-[ ! -e HyperLevelDB ] && git clone --depth 1 --single-branch -b gn https://github.com/dyu/HyperLevelDB.git
+[ ! -e hyperleveldb ] && git clone --depth 1 --single-branch -b gn https://github.com/dyu/hyperleveldb.git
 }
 
 fetch_libuv() {
