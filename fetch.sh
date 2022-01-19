@@ -1,6 +1,6 @@
 #!/bin/sh
 
-GTEST_VERSION=1.8.0
+GTEST_VERSION=1.11.0
 GTEST_GZ=target/googletest-$GTEST_VERSION.tar.gz
 
 # legacy version
