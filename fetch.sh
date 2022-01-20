@@ -62,6 +62,9 @@ fetch_leveldb() {
 fetch_leveldb_bp() {
 [ ! -e leveldb-bp ] && git clone --depth 1 --single-branch -b gn-backport https://github.com/dyu/leveldb.git leveldb-bp
 }
+fetch_psldb() {
+[ ! -e psldb ] && git clone --depth 1 --single-branch -b gn-log https://github.com/dyu/leveldb.git psldb
+}
 
 #hypereveldb
 fetch_hyperleveldb() {
@@ -69,6 +72,9 @@ fetch_hyperleveldb() {
 }
 fetch_hyperleveldb_bp() {
 [ ! -e hyperleveldb-bp ] && git clone --depth 1 --single-branch -b gn-backport https://github.com/dyu/hyperleveldb.git hyperleveldb-bp
+}
+fetch_pshdb() {
+[ ! -e pshdb ] && git clone --depth 1 --single-branch -b gn-log https://github.com/dyu/hyperleveldb.git pshdb
 }
 
 fetch_libuv() {
@@ -139,12 +145,20 @@ case "$1" in
     fetch_leveldb_bp
     ;;
     
+    psldb)
+    fetch_psldb
+    ;;
+    
     hyperleveldb)
     fetch_hyperleveldb
     ;;
     
     hyperleveldb-bp)
     fetch_hyperleveldb_bp
+    ;;
+    
+    pshdb)
+    fetch_pshdb
     ;;
     
     libuv)
