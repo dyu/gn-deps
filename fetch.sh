@@ -55,12 +55,20 @@ fetch_snappy() {
 #    patch leveldb-legacy/include/leveldb/slice.h < leveldb-legacy/gn-diff/leveldb_slice.diff
 #}
 
+#leveldb
 fetch_leveldb() {
 [ ! -e leveldb ] && git clone --depth 1 --single-branch -b gn https://github.com/dyu/leveldb.git
 }
+fetch_leveldb_bp() {
+[ ! -e leveldb-bp ] && git clone --depth 1 --single-branch -b gn-backport https://github.com/dyu/leveldb.git leveldb-bp
+}
 
+#hypereveldb
 fetch_hyperleveldb() {
 [ ! -e hyperleveldb ] && git clone --depth 1 --single-branch -b gn https://github.com/dyu/hyperleveldb.git
+}
+fetch_hyperleveldb_bp() {
+[ ! -e hyperleveldb-bp ] && git clone --depth 1 --single-branch -b gn-backport https://github.com/dyu/hyperleveldb.git hyperleveldb-bp
 }
 
 fetch_libuv() {
@@ -127,8 +135,16 @@ case "$1" in
     fetch_leveldb
     ;;
     
+    leveldb-bp)
+    fetch_leveldb_bp
+    ;;
+    
     hyperleveldb)
     fetch_hyperleveldb
+    ;;
+    
+    hyperleveldb-bp)
+    fetch_hyperleveldb_bp
     ;;
     
     libuv)
