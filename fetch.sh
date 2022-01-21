@@ -110,7 +110,7 @@ fetch_zstd() {
 [ ! -e zstd ] && git clone --depth 1 --single-branch -b gn https://github.com/dyu/zstd.git
 }
 
-fetch_all() {
+fetch() {
     fetch_gtest
     fetch_crc32c
     fetch_snappy
@@ -121,6 +121,28 @@ fetch_all() {
     fetch_libpng
     fetch_zlib
     fetch_zstd
+}
+
+fetch_all() {
+    fetch
+    # leveldb variants
+    fetch_leveldb_bp
+    fetch_psldb
+    # hyperleveldb variants
+    fetch_hyperleveldb_bp
+    fetch_pshdb
+}
+
+fetch_psdb() {
+    fetch_gtest
+    fetch_crc32c
+    fetch_snappy
+    fetch_libuv
+    fetch_uws
+    fetch_json
+    
+    fetch_psldb
+    fetch_pshdb
 }
 
 fetch_arg() {
@@ -185,6 +207,18 @@ case "$1" in
     fetch_zstd
     ;;
     
+    psdb)
+    fetch_psdb
+    ;;
+    
+    all)
+    fetch_all
+    ;;
+    
+    *)
+    echo "Unknown dependency: $1"
+    ;;
+    
 esac
 }
 
@@ -209,6 +243,6 @@ if [ -n "$1" ]; then
     fetch_arg $i
     done
 else
-    fetch_all
+    fetch
 fi
 
