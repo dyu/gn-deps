@@ -1,4 +1,8 @@
 /target
-/leveldb
+/crc32c
 /snappy
 /zstd
+/zlib
+/hyperleveldb*
+/leveldb*
+/ps*
