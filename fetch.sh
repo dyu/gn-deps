@@ -23,6 +23,9 @@ JSON_H=nlohmann-json/json.hpp
 LIBPNG_VERSION=1.6.29
 LIBPNG_GZ=target/libpng-$LIBPNG_VERSION.tar.gz
 
+OPENSSL_VERSION=1.1.1m
+OPENSSL_GZ=target/openssl-$OPENSSL_VERSION.tar.gz
+
 ZLIB_VERSION=1.2.11
 ZLIB_GZ=target/zlib-$ZLIB_VERSION.tar.gz
 
@@ -100,6 +103,12 @@ fetch_libpng() {
     tar -xvzf $LIBPNG_GZ --strip-components=1 -C libpng
 }
 
+fetch_openssl() {
+[ ! -e openssl/ssl ] && \
+    curl https://www.openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz -Lso $OPENSSL_GZ && \
+    tar -xvzf $OPENSSL_GZ --strip-components=1 -C openssl
+}
+
 fetch_zlib() {
 [ ! -e zlib/zlib.h ] && \
     curl https://zlib.net/zlib-$ZLIB_VERSION.tar.gz -Lso $ZLIB_GZ && \
@@ -119,6 +128,7 @@ fetch() {
     fetch_uws
     fetch_json
     fetch_libpng
+    fetch_openssl
     fetch_zlib
     fetch_zstd
 }
@@ -138,6 +148,8 @@ fetch_psdb() {
     fetch_crc32c
     fetch_snappy
     fetch_libuv
+    fetch_openssl
+    fetch_zlib
     fetch_uws
     fetch_json
     
@@ -197,6 +209,10 @@ case "$1" in
     
     libpng)
     fetch_libpng
+    ;;
+    
+    openssl)
+    fetch_openssl
     ;;
     
     zlib)
