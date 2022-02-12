@@ -4,16 +4,23 @@ config("openssl_config") {
     "OPENSSL_PIC",
     "ZLIB",
   ]
+  if (with_asm) {
+    defines += [
+      "OPENSSL_CPUID_OBJ",
+      "OPENSSL_BN_ASM_MONT",
+    ]
+  } else {
+    defines += [
+      "OPENSSL_NO_ASM",
+    ]
+  }
   if (is_win) {
     defines += [
       "OPENSSL_SYS_WIN32",
       "OPENSSL_USE_APPLINK",
     ]
   } else if (is_mac) {
-    defines += [
-      "OPENSSL_CPUID_OBJ",
-      "OPENSSL_BN_ASM_MONT",
-    ]
+    include_dirs += [ "platform-include/mac" ]
   } else {
     defines += [
       "OPENSSL_USE_NODELETE",
@@ -35,16 +42,20 @@ config("openssl_local_config") {
   defines = [
     "L_ENDIAN",
     "_REENTRANT",
-    "SHA1_ASM",
-    "SHA256_ASM",
-    "SHA512_ASM",
-    "KECCAK1600_ASM",
-    "VPAES_ASM",
-    "ECP_NISTZ256_ASM",
-    "POLY1305_ASM",
     "OPENSSLDIR=\".\"",
     "ENGINESDIR=\".\"",
   ]
+  if (with_asm) {
+    defines += [
+      "SHA1_ASM",
+      "SHA256_ASM",
+      "SHA512_ASM",
+      "KECCAK1600_ASM",
+      "VPAES_ASM",
+      "ECP_NISTZ256_ASM",
+      "POLY1305_ASM",
+    ]
+  }
   if (is_win) {
     defines += [
       "WIN32_LEAN_AND_MEAN",
@@ -54,7 +65,7 @@ config("openssl_local_config") {
       "_WINSOCK_DEPRECATED_NO_WARNINGS",
     ]
   } else if (is_mac) {
-    include_dirs += [ "platform-include/mac", "platform-include/mac/crypto" ]
+    include_dirs += [ "platform-include/mac/crypto" ]
   } else {
     include_dirs += [ "platform-include/linux" ]
   }
@@ -766,16 +777,15 @@ static_library("openssl") {
     "engines/e_padlock.c",
   ]
   
-  #if (is_win) {
-  #  sources += [ "platform-include/win/openssl/opensslconf.h" ]
-  #} else if (is_mac) {
-  #  sources += [ "platform-include/mac/openssl/opensslconf.h" ]
-  #} else {
-  #  sources += [ "platform-include/linux/openssl/opensslconf.h" ]
-  #}
+  if (!with_asm) {
+    sources += [
+      "crypto/mem_clr.c",
+    ]
+  }
+  
   if (target_cpu == "arm64") {
     sources += [ "crypto/armcap.c" ]
-    if (is_mac) {
+    if (is_mac && with_asm) {
       sources += [
         "platform-include/mac/aesv8-armx.S",
         "platform-include/mac/arm64cpuid.S",
@@ -791,10 +801,6 @@ static_library("openssl") {
         "platform-include/mac/vpaes-armv8.S",
       ]
     }
-  } else {
-    sources += [
-      "crypto/mem_clr.c",
-    ]
   }
   
   configs += [ ":openssl_local_config" ]
