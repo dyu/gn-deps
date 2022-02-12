@@ -17,7 +17,15 @@ config("openssl_config") {
   if (is_win) {
     defines += [
       "OPENSSL_SYS_WIN32",
-      "OPENSSL_USE_APPLINK",
+      #"OPENSSL_USE_APPLINK",
+    ]
+    include_dirs += [ "platform-include/win" ]
+    libs = [
+      "ws2_32.lib",
+      "gdi32.lib",
+      "advapi32.lib",
+      "crypt32.lib",
+      "user32.lib",
     ]
   } else if (is_mac) {
     include_dirs += [ "platform-include/mac" ]
@@ -65,6 +73,7 @@ config("openssl_local_config") {
       "_CRT_SECURE_NO_DEPRECATE",
       "_WINSOCK_DEPRECATED_NO_WARNINGS",
     ]
+    include_dirs += [ "platform-include/win/crypto" ]
   } else if (is_mac) {
     include_dirs += [ "platform-include/mac/crypto" ]
   } else {
