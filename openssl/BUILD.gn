@@ -25,6 +25,7 @@ config("openssl_config") {
     defines += [
       "OPENSSL_USE_NODELETE",
     ]
+    include_dirs += [ "platform-include/linux" ]
   }
 }
 
@@ -67,7 +68,7 @@ config("openssl_local_config") {
   } else if (is_mac) {
     include_dirs += [ "platform-include/mac/crypto" ]
   } else {
-    include_dirs += [ "platform-include/linux" ]
+    include_dirs += [ "platform-include/linux/crypto" ]
   }
 }
 
@@ -780,6 +781,12 @@ static_library("openssl") {
   if (!with_asm) {
     sources += [
       "crypto/mem_clr.c",
+    ]
+  }
+  
+  if (!is_mac && !is_win) {
+    sources += [
+      "engines/e_afalg.c",
     ]
   }
   
