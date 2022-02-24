@@ -35,6 +35,10 @@ fetch_gtest() {
     tar -xvzf $GTEST_GZ --strip-components=1 -C googletest
 }
 
+fetch_cocoyaxi() {
+[ ! -e cocoyaxi ] && git clone --depth 1 --single-branch -b gn https://github.com/dyu/cocoyaxi.git
+}
+
 fetch_crc32c() {
 [ ! -e crc32c ] && git clone --depth 1 --single-branch -b gn https://github.com/dyu/crc32c.git
 }
@@ -121,6 +125,7 @@ fetch_zstd() {
 
 fetch() {
     fetch_gtest
+    fetch_cocoyaxi
     fetch_crc32c
     fetch_snappy
     fetch_leveldb
@@ -165,6 +170,10 @@ case "$1" in
     
     crc32c)
     fetch_crc32c
+    ;;
+    
+    cocoyaxi)
+    fetch_cocoyaxi
     ;;
     
     snappy)
