@@ -1,34 +1,12 @@
 # ==================================================
 # vars
 
-if (is_win) {
-  vcpkg_dir = "C:\\vcpkg\vcpkg"
-  vcpkg_lib_dir = "$vcpkg_dir\\installed\\x64-windows-static\\lib"
-  vcpkg_include_dir = "$vcpkg_dir\\installed\\x64-windows-static\\include"
-}
-
 config("uws_config") {
   include_dirs = [ "src" ]
   if (is_win) {
-    include_dirs += [ "$vcpkg_include_dir" ]
-    ldflags = [ "/LIBPATH:$vcpkg_lib_dir" ]
     libs = [
-      "libeay32.lib",
-      "ssleay32.lib",
-      "zlib.lib",
       "gdi32.lib",
     ]
-  } else {
-    libs = [
-      "crypto",
-      "ssl",
-      "z",
-    ]
-    #TODO add a gn build for openssl so this hack can be removed
-    if (is_mac) {
-      include_dirs += [ "/usr/local/include" ]
-      ldflags = [ "-L/usr/local/lib" ]
-    }
   }
 }
 
@@ -58,10 +36,15 @@ static_library("uws") {
     "src/Socket.cpp",
     "src/Epoll.cpp",
   ]
-  public_configs = [ ":uws_config" ]
+  public_configs = [
+    ":uws_config",
+    "../openssl:openssl_config",
+    "../zlib:zlib_config",
+  ]
+  deps = [ "../openssl:openssl" ]
   if (is_win || is_mac) {
     defines = [ "USE_LIBUV" ]
-    deps = [ "../libuv:libuv" ]
+    deps += [ "../libuv:libuv" ]
   }
 }
 
