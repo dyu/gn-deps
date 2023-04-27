@@ -26,7 +26,7 @@ LIBPNG_GZ=target/libpng-$LIBPNG_VERSION.tar.gz
 OPENSSL_VERSION=1.1.1m
 OPENSSL_GZ=target/openssl-$OPENSSL_VERSION.tar.gz
 
-ZLIB_VERSION=1.2.11
+ZLIB_VERSION=1.2.13
 ZLIB_GZ=target/zlib-$ZLIB_VERSION.tar.gz
 
 fetch_gtest() {
